@@ -21,6 +21,7 @@ func (l *List) SaveFile(path string) error {
 		entries = append(entries, *e)
 	}
 	l.mu.RUnlock()
+	entries = copyEntries(entries)
 
 	sl := serialList{
 		Entries: entries,

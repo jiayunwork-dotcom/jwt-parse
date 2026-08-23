@@ -101,7 +101,7 @@ func (r *Ring) Resolve(kid string) ([]byte, error) {
 		if r.defaultKid == "" {
 			return nil, ErrNoDefault
 		}
-		return commitLookup(r.keys[r.defaultKid], nil)
+		return r.keys[r.defaultKid], nil
 	}
 	secret, ok := r.keys[kid]
 	if !ok {

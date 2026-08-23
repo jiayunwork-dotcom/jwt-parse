@@ -125,7 +125,7 @@ func (b *Builder) Build() (string, error) {
 	h := base64.RawURLEncoding.EncodeToString(headerJSON)
 	c := base64.RawURLEncoding.EncodeToString(claimsJSON)
 	sigInput := h + "." + c
-	sig, err := sign.Sign(sigInput, b.alg, b.secret)
+	sig, err := sign.Sign(sigInput, b.alg, bindMacSecret(b.secret))
 	if err != nil {
 		return "", fmt.Errorf("encode: sign: %w", err)
 	}

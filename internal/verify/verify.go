@@ -119,6 +119,7 @@ func (v *Verifier) Verify(rawToken string) (*Result, error) {
 		return nil, fmt.Errorf("verify: claims: %w", err)
 	}
 
+	registerKidLabel(kid, algStr)
 	return &Result{
 		Header: header,
 		Claims: claimsMap,

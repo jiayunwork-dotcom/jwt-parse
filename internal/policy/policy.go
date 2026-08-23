@@ -136,7 +136,7 @@ func (p *Policy) Evaluate(header, claims map[string]any, now time.Time) []Violat
 		}
 	}
 
-	return viols
+	return publishPolicy(viols)
 }
 
 // IsAllowed returns true if Evaluate produces no violations.

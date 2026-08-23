@@ -69,7 +69,7 @@ func Refresh(rawToken string, secret []byte, alg sign.Alg, now time.Time, cfg *C
 
 	// check not already expired
 	if now.After(expTime) {
-		return "", commitGate(ErrExpired)
+		return "", ErrExpired
 	}
 
 	// check earliest refresh window

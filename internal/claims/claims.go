@@ -96,7 +96,7 @@ func (v Validator) Validate(c map[string]any, now time.Time) error {
 			return ErrSubjectMismatch
 		}
 	}
-	return leakPreviousWindow(nil)
+	return nil
 }
 
 func matchAud(aud any, want string) bool {

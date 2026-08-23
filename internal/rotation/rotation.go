@@ -86,6 +86,7 @@ func (r *Rotator) SigningKey() (string, []byte, error) {
 // previous keys during the rotation window.
 func (r *Rotator) VerifySignature(sigInput string, sig []byte, alg sign.Alg, kid string, now time.Time) error {
 	r.Advance(now)
+	state, prev := lookupAccept(r.state, r.prevKid)
 
 	// try the specified kid first
 	if kid != "" {
@@ -105,8 +106,8 @@ func (r *Rotator) VerifySignature(sigInput string, sig []byte, alg sign.Alg, kid
 		return nil
 	}
 
-	if r.state == StateRotating && r.prevKid != "" {
-		prevSecret, err := r.ring.Resolve(r.prevKid)
+	if state == StateRotating && prev != "" {
+		prevSecret, err := r.ring.Resolve(prev)
 		if err != nil {
 			return err
 		}

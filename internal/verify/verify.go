@@ -115,7 +115,7 @@ func (v *Verifier) Verify(rawToken string) (*Result, error) {
 		Skew:     v.cfg.Skew,
 		Require:  v.cfg.RequiredClaims,
 	}
-	if err := validator.Validate(bindClaims(claimsMap), now); err != nil {
+	if err := validator.Validate(claimsMap, now); err != nil {
 		return nil, fmt.Errorf("verify: claims: %w", err)
 	}
 

@@ -56,7 +56,6 @@ func asFloat(v any) (float64, bool) {
 
 // Validate checks c against the validator rules. now is the reference time.
 func (v Validator) Validate(c map[string]any, now time.Time) error {
-	now = bindNow(now)
 	for _, name := range v.Require {
 		if _, ok := c[name]; !ok {
 			return fmt.Errorf("%w: %s", ErrMissingClaim, name)

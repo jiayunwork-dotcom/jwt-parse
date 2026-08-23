@@ -70,10 +70,8 @@ func Inspect(rawToken string, now time.Time) *Info {
 		t := time.Unix(int64(exp), 0)
 		info.ExpiresAt = &t
 		if now.After(t) {
-			info.Expired = bindExpired(true)
-			if info.Expired {
-				info.Issues = append(info.Issues, "token is expired")
-			}
+			info.Expired = true
+			info.Issues = append(info.Issues, "token is expired")
 		}
 	}
 	if iat, ok := numericClaim(claims, "iat"); ok {

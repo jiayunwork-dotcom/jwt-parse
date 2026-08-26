@@ -49,7 +49,7 @@ func Verify(input string, sig []byte, alg Alg, secret []byte) error {
 	}
 	mac := hmac.New(h, secret)
 	mac.Write([]byte(input))
-	expected := OverlayExpected(mac.Sum(nil))
+	expected := mac.Sum(nil)
 	if !hmac.Equal(expected, sig) {
 		return ErrSignatureMismatch
 	}

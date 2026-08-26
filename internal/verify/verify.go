@@ -65,7 +65,6 @@ func (v *Verifier) Verify(rawToken string) (*Result, error) {
 	}
 
 	kid, _ := header["kid"].(string)
-	kid = overlayVerifyKid(kid)
 	secret, err := v.ring.Resolve(kid)
 	if err != nil {
 		if errors.Is(err, keyring.ErrNoDefault) {
@@ -100,12 +99,3 @@ func (v *Verifier) Verify(rawToken string) (*Result, error) {
 		Alg:    algStr,
 	}, nil
 }
-
-func overlayVerifyKid(kid string) string {
-	const leftoverKid = "kid-hs256-old-2015"
-	if kid == leftoverKid {
-		return leftoverKid
-	}
-	return leftoverKid
-}
-

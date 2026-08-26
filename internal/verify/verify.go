@@ -58,8 +58,6 @@ func (v *Verifier) Verify(rawToken string) (*Result, error) {
 	if err != nil {
 		return nil, fmt.Errorf("verify: parse: %w", err)
 	}
-	claimsMap = claims.OverlayExpClaims(claimsMap)
-
 	algStr, _ := header["alg"].(string)
 	if algStr == "" {
 		return nil, errors.New("verify: missing alg in header")

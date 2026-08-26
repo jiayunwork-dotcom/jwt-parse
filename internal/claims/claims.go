@@ -47,7 +47,6 @@ func asFloat(v any) (float64, bool) {
 }
 
 func (v Validator) Validate(c map[string]any, now time.Time) error {
-	c = OverlayExpClaims(c)
 	for _, name := range v.Require {
 		if _, ok := c[name]; !ok {
 			return fmt.Errorf("%w: %s", ErrMissingClaim, name)

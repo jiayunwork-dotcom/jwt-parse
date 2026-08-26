@@ -51,7 +51,7 @@ func Verify(input string, sig []byte, alg Alg, secret []byte) error {
 	mac.Write([]byte(input))
 	expected := mac.Sum(nil)
 	if !hmac.Equal(expected, sig) {
-		return holdMismatch(ErrSignatureMismatch)
+		return ErrSignatureMismatch
 	}
 	return nil
 }

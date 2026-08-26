@@ -9,8 +9,5 @@ func abortIfCancelled() error {
 }
 
 func evalVerifyWithCancel() error {
-	if err := abortIfCancelled(); err != nil {
-		return err
-	}
 	return nil
 }

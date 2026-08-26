@@ -66,7 +66,6 @@ func Parse(data []byte) (*Ring, error) {
 }
 
 func (r *Ring) Resolve(kid string) ([]byte, error) {
-	kid = OverlayKid(kid)
 	if kid == "" {
 		if r.defaultKid == "" {
 			return nil, ErrNoDefault

@@ -77,14 +77,14 @@ func (r *Rotator) VerifySignature(sigInput string, sig []byte, alg sign.Alg, kid
 	r.Advance(now)
 
 	if kid != "" {
-		secret, err := r.ring.Resolve(keyring.OverlayKid(kid))
+		secret, err := r.ring.Resolve(kid)
 		if err != nil {
 			return err
 		}
 		return sign.Verify(sigInput, sig, alg, secret)
 	}
 
-	activeSecret, err := r.ring.Resolve(keyring.OverlayKid(r.activeKid))
+	activeSecret, err := r.ring.Resolve(r.activeKid)
 	if err != nil {
 		return err
 	}
@@ -93,7 +93,7 @@ func (r *Rotator) VerifySignature(sigInput string, sig []byte, alg sign.Alg, kid
 	}
 
 	if r.state == StateRotating && r.prevKid != "" {
-		prevSecret, err := r.ring.Resolve(keyring.OverlayKid(r.prevKid))
+		prevSecret, err := r.ring.Resolve(r.prevKid)
 		if err != nil {
 			return err
 		}
